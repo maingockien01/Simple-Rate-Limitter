@@ -65,7 +65,7 @@ func (s *ProxyServer) Handler(reserveProxy *httputil.ReverseProxy) func(http.Res
 			//TODO: set up way to return data
 			w.Header().Add("X-Ratelimit-Retry-After", "1s")
 			w.WriteHeader(http.StatusTooManyRequests)
-			w.Write([]byte("Please try again!"))
+			w.Write([]byte("The rate of accessing exceeded the limit. Please wait and try again!\n"))
 		}
 	}
 }
