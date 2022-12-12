@@ -1,0 +1,12 @@
+[
+	{
+		"ApiPath": "/",
+		"MaxTokens": 2,
+		"Rate": 1
+	},
+	{
+		"ApiPath": "/whoami",
+		"MaxTokens": 5,
+		"Rate": 1
+	}
+]

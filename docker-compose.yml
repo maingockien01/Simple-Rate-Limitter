@@ -1,0 +1,48 @@
+version: '3.9'
+services:
+  proxy:
+    container_name: "proxy"
+    image: "proxy"
+    environment:
+      - REDIS_URL=redis:6379
+      - BACKEND_URL=http://backend:80
+    ports:
+      - "8080:8080"
+    links:
+      - redis
+      - backend
+  backend:
+    container_name: "backend"
+    image: "containous/whoami"
+    ports:
+      - "8000:80"
+  proxy2:
+    container_name: "proxy2"
+    image: "proxy2"
+    environment:
+      - REDIS_URL=redis:6379
+      - BACKEND_URL=http://backend2:80
+    ports:
+      - "8081:8080"
+    links:
+      - redis
+      - backend2
+  backend2:
+    container_name: "backend2"
+    image: "containous/whoami"
+    ports:
+      - "8001:80"
+  ruler:
+    container_name: "ruler"
+    image: "ruler"
+    environment:
+      - REDIS_URL=redis:6379
+  redis:
+    container_name: "redis"
+    image: "redis:alpine"
+    # command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    # volumes:
+      # - $PWD/redis/configs/redis.conf:/usr/local/etc/redis/redis.conf
+    # network_mode: "host"
